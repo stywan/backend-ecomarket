@@ -19,6 +19,6 @@ public class ProductResponse {
 
     private CategoryResponse category;
     private BrandResponse brand;
-    private List<ProductImageResponse> images;
+    private ProductImageResponse images;
 }
 
