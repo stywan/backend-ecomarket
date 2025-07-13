@@ -3,14 +3,8 @@ package com.ecomarket.backend.catalog_product.service;
 import com.ecomarket.backend.catalog_product.DTO.ProductImageRequest;
 import com.ecomarket.backend.catalog_product.DTO.ProductRequest;
 import com.ecomarket.backend.catalog_product.exception.ResourceNotFoundException;
-import com.ecomarket.backend.catalog_product.model.Brand;
-import com.ecomarket.backend.catalog_product.model.Category;
-import com.ecomarket.backend.catalog_product.model.Product;
-import com.ecomarket.backend.catalog_product.model.ProductImage;
-import com.ecomarket.backend.catalog_product.repository.BrandRepository;
-import com.ecomarket.backend.catalog_product.repository.CategoryRepository;
-import com.ecomarket.backend.catalog_product.repository.ProductImageRepository;
-import com.ecomarket.backend.catalog_product.repository.ProductRepository;
+import com.ecomarket.backend.catalog_product.model.*;
+import com.ecomarket.backend.catalog_product.repository.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -25,8 +19,10 @@ public class ProductService {
     private final CategoryRepository categoryRepo;
     private final BrandRepository brandRepo;
     private final ProductImageRepository imageRepo;
+    private final InventoryRepository inventoryRepo;
 
     public Product createProduct(ProductRequest request) {
+
         Category category = categoryRepo.findById(request.getCategoryId())
                 .orElseThrow(() -> new ResourceNotFoundException("Category not found"));
 
@@ -47,7 +43,18 @@ public class ProductService {
                 .lastUpdate(LocalDateTime.now())
                 .build();
 
-        return productRepo.save(product);
+        Product savedProduct = productRepo.save(product);
+
+        Inventory inventory = Inventory.builder()
+                .product(savedProduct)
+                .availableQuantity(0)
+                .location("Default Location")
+                .lastUpdate(LocalDateTime.now())
+                .build();
+
+        inventoryRepo.save(inventory);
+
+        return savedProduct;
     }
 
     public Product updateProduct(Long id, ProductRequest request) {
@@ -71,6 +78,7 @@ public class ProductService {
         product.setLastUpdate(LocalDateTime.now());
 
         return productRepo.save(product);
+
     }
 
     public void deleteProduct(Long id) {

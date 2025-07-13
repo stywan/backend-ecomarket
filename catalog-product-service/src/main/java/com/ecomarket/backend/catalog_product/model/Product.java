@@ -53,6 +53,7 @@ public class Product {
     private LocalDateTime lastUpdate;
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
+    @Builder.Default
     private List<ProductImage> images = new ArrayList<>();
 
     public enum ProductStatus {

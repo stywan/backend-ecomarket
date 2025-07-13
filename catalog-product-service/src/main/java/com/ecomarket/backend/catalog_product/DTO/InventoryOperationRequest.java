@@ -6,10 +6,11 @@ import lombok.Data;
 
 @Data
 public class InventoryOperationRequest {
-    @NotNull
+
+    @NotNull(message = "Quantity is required")
     private Integer quantity;
 
-    @NotBlank
+    @NotBlank(message = "Operation type must not be blank, e.g. \"RELEASE\", \"DECREMENT\", \"INCREMENT\"")
     private String operationType; // e.g. "RESERVE", "RELEASE", "DECREMENT", "INCREMENT"
 
     private String location;

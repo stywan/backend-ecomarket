@@ -1,5 +1,6 @@
 package com.ecomarket.backend.catalog_product.DTO;
 
+import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
@@ -8,21 +9,23 @@ import java.math.BigDecimal;
 
 @Data
 public class ProductRequest {
-    @NotBlank
+    @NotBlank(message = "Product name must not be blank")
     private String name;
 
+    @NotBlank(message = "Description must not be blank")
     private String description;
 
-    @NotNull
+    @NotNull(message = "Price is required")
+    @DecimalMin(value = "0.0", inclusive = false, message = "Price must be greater than zero")
     private BigDecimal price;
 
-    @NotBlank
+    @NotBlank(message = "SKU must not be blank")
     private String sku;
 
-    @NotNull
+    @NotNull(message = "Category ID is required")
     private Long categoryId;
 
-    @NotNull
+    @NotNull(message = "Brand ID is required")
     private Long brandId;
 
     private BigDecimal weight;

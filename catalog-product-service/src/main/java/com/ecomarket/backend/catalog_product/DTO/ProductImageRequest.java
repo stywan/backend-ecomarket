@@ -5,6 +5,6 @@ import lombok.Data;
 
 @Data
 public class ProductImageRequest {
-    @NotBlank
+    @NotBlank(message = "Image URL must not be blank")
     private String url;
 }
