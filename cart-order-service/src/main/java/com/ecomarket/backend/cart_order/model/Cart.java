@@ -3,6 +3,7 @@ package com.ecomarket.backend.cart_order.model;
 import jakarta.persistence.*;
 import lombok.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -27,9 +28,10 @@ public class Cart {
     private Status status;
 
     @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<CartItem> items;
+    @Builder.Default
+    private List<CartItem> items = new ArrayList<>();
 
     public enum Status {
-        ACTIVE, COMPLETED, ABANDONED
+        ACTIVE, CHECKED_OUT, ABANDONED
     }
 }

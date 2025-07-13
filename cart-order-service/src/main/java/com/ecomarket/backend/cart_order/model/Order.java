@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -41,7 +42,8 @@ public class Order {
     private Double shippingCost;
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
-    private List<OrderItem> items;
+    @Builder.Default
+    private List<OrderItem> items = new ArrayList<>();
 
     public enum OrderStatus {
         PENDING_PAYMENT, PAID, PROCESSING, SHIPPED, DELIVERED, CANCELLED, RETURNED
