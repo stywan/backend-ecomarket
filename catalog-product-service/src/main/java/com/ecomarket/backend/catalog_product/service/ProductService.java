@@ -114,19 +114,19 @@ public class ProductService {
                 .orElseThrow(() -> new ResourceNotFoundException("Product not found"));
     }
 
-    public List<Product> searchByName(String name) {
-        return productRepo.findByNameContaining(name);
-    }
-
-    public List<Product> searchBySku(String sku) {
-        return productRepo.findBySku(sku).map(List::of).orElse(List.of());
-    }
-
-    public List<Product> getByCategory(Long categoryId) {
-        return productRepo.findByCategory_Id(categoryId);
-    }
-
-    public List<Product> getByBrand(Long brandId) {
-        return productRepo.findByBrand_Id(brandId);
+    public List<Product> searchProducts(String name, String sku, Long categoryId, Long brandId) {
+        if (name != null) {
+            return productRepo.findByNameContaining(name);
+        }
+        if (sku != null) {
+            return productRepo.findBySku(sku).map(List::of).orElse(List.of());
+        }
+        if (categoryId != null) {
+            return productRepo.findByCategory_Id(categoryId);
+        }
+        if (brandId != null) {
+            return productRepo.findByBrand_Id(brandId);
+        }
+        return productRepo.findAll();
     }
 }

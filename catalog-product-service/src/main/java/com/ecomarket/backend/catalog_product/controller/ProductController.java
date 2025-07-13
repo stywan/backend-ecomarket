@@ -55,33 +55,18 @@ public class ProductController {
         return productAssembler.toModel(product);
     }
 
-    @GetMapping("/search")
-    public CollectionModel<EntityModel<ProductResponse>> searchByName(@RequestParam String name) {
-        List<EntityModel<ProductResponse>> products = productService.searchByName(name).stream()
-                .map(productAssembler::toModel)
-                .toList();
-        return CollectionModel.of(products);
-    }
 
-    @GetMapping("/sku")
-    public CollectionModel<EntityModel<ProductResponse>> searchBySku(@RequestParam String sku) {
-        List<EntityModel<ProductResponse>> products = productService.searchBySku(sku).stream()
-                .map(productAssembler::toModel)
-                .toList();
-        return CollectionModel.of(products);
-    }
 
-    @GetMapping("/category/{categoryId}")
-    public CollectionModel<EntityModel<ProductResponse>> getByCategory(@PathVariable Long categoryId) {
-        List<EntityModel<ProductResponse>> products = productService.getByCategory(categoryId).stream()
-                .map(productAssembler::toModel)
-                .toList();
-        return CollectionModel.of(products);
-    }
 
-    @GetMapping("/brand/{brandId}")
-    public CollectionModel<EntityModel<ProductResponse>> getByBrand(@PathVariable Long brandId) {
-        List<EntityModel<ProductResponse>> products = productService.getByBrand(brandId).stream()
+    @GetMapping
+    public CollectionModel<EntityModel<ProductResponse>> searchProducts(
+            @RequestParam(required = false) String name,
+            @RequestParam(required = false) String sku,
+            @RequestParam(required = false) Long categoryId,
+            @RequestParam(required = false) Long brandId
+    ) {
+        List<EntityModel<ProductResponse>> products = productService.searchProducts(name, sku, categoryId, brandId)
+                .stream()
                 .map(productAssembler::toModel)
                 .toList();
         return CollectionModel.of(products);
