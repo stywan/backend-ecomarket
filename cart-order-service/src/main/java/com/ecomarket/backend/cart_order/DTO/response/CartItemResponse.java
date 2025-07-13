@@ -1,4 +1,4 @@
-package com.ecomarket.backend.cart_order.DTO;
+package com.ecomarket.backend.cart_order.DTO.response;
 import lombok.Builder;
 import lombok.Data;
 
