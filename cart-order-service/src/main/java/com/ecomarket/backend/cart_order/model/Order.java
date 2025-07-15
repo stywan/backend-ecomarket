@@ -5,9 +5,10 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -20,32 +21,35 @@ public class Order {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long orderId;
+    private Long id;
 
-    private Long userId;
+    private Long userId; // CONEXIÓN CON USUARIO
 
-    private Long shippingAddressId;
+    private Long shippingAddressId; // CONEXIÓN CON DIRECCIÓN DE ENVÍO
 
-    private Long paymentTransactionId;
+    private Long paymentTransactionId; // CONEXIÓN CON TRANSACCIÓN DE PAGO
 
-    private Long taxProfileId;
-
-    private LocalDateTime orderDate;
+    @CreationTimestamp
+    @Column(nullable = false)
+    private LocalDateTime createdAt;
 
     @Enumerated(EnumType.STRING)
     private OrderStatus orderStatus;
 
-    private Double totalAmount;
+    private BigDecimal totalAmount;
 
-    private Double subtotal;
+    private BigDecimal subtotal;
 
-    private Double shippingCost;
+    private BigDecimal shippingCost;
 
-    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
-    @Builder.Default
-    private List<OrderItem> items = new ArrayList<>();
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<OrderItem> items;
 
     public enum OrderStatus {
-        PENDING_PAYMENT, PAID, PROCESSING, SHIPPED, DELIVERED, CANCELLED, RETURNED
+        PENDING_PAYMENT,
+        CONFIRMED,
+        SHIPPED,
+        DELIVERED,
+        CANCELLED
     }
 }

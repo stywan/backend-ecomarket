@@ -3,6 +3,8 @@ package com.ecomarket.backend.cart_order.model;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.math.BigDecimal;
+
 @Entity
 @Table(name = "order_items")
 @Data
@@ -13,15 +15,24 @@ public class OrderItem {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long orderItemId;
+    private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "order_id")
+    @JoinColumn(name = "order_id", nullable = false)
     private Order order;
 
+    @Column(nullable = false)
     private Long productId;
 
-    private Integer quantity;
+    @Column(nullable = false)
+    private String productName;
 
-    private Double unitSalePrice;
+    @Column(nullable = false)
+    private BigDecimal productPrice;
+
+    @Column(nullable = false)
+    private int quantity;
+
+    @Column(nullable = false)
+    private BigDecimal subtotal;
 }
