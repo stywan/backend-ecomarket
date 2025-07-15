@@ -1,9 +1,7 @@
-package com.ecomarket.backend.cart_order.DTO;
+package com.ecomarket.backend.cart_order.DTO.response;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import org.springframework.hateoas.RepresentationModel;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -12,7 +10,8 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class OrderResponseDTO {
+@EqualsAndHashCode(callSuper = false) // Importante cuando se extiende RepresentationModel
+public class OrderResponseDTO extends RepresentationModel<OrderResponseDTO> {
     private Long id;
     private Long userId;
     private Long shippingAddressId;
