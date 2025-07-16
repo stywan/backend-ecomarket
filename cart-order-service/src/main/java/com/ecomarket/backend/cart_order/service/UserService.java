@@ -1,6 +1,6 @@
 package com.ecomarket.backend.cart_order.service;
 
-import com.ecomarket.backend.cart_order.DTO.UserResponseDTO;
+import com.ecomarket.backend.cart_order.DTO.response.UserResponseDTO;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
