@@ -69,4 +69,13 @@ public class ReceiptService {
                 .status(receipt.getStatus().name())
                 .build();
     }
+
+    public List<Receipt> getReceiptsByTransactionId(Long transactionId) {
+        return receiptRepository.findByTransactionId(transactionId);
+    }
+    
+    public long countAllReceipts() {
+        return receiptRepository.count();
+    }
+    
 }

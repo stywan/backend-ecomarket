@@ -4,7 +4,6 @@ import com.ecomarket.backend.catalog_product.DTO.InventoryOperationRequest;
 import com.ecomarket.backend.catalog_product.exception.ResourceNotFoundException;
 import com.ecomarket.backend.catalog_product.model.Inventory;
 import com.ecomarket.backend.catalog_product.repository.InventoryRepository;
-import com.ecomarket.backend.catalog_product.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +14,6 @@ import java.time.LocalDateTime;
 public class InventoryService {
 
     private final InventoryRepository inventoryRepo;
-    private final ProductRepository productRepo;
 
     public Inventory handleOperation(Long productId, InventoryOperationRequest request) {
         Inventory inventory = inventoryRepo.findByProduct_Id(productId)
