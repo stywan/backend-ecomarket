@@ -1,18 +1,22 @@
-package com.ecomarket.backend.payment.DTO;
+package com.ecomarket.backend.payment.DTO.response;
 
 import lombok.*;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class InvoiceRequestDTO {
+public class InvoiceResponseDTO {
+    private Long invoiceId;
     private Long orderId;
     private Long transactionId;
     private String documentNumber;
+    private LocalDateTime issueDate;
     private BigDecimal totalAmount;
     private BigDecimal taxes;
     private Long taxProfileId;
+    private String status;
 }

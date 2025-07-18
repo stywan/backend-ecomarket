@@ -1,9 +1,10 @@
 package com.ecomarket.backend.payment.service;
 
-import com.ecomarket.backend.payment.DTO.ReceiptRequestDTO;
-import com.ecomarket.backend.payment.DTO.ReceiptResponseDTO;
+import com.ecomarket.backend.payment.DTO.request.ReceiptRequestDTO;
+import com.ecomarket.backend.payment.DTO.response.ReceiptResponseDTO;
 import com.ecomarket.backend.payment.model.Receipt;
 import com.ecomarket.backend.payment.repository.ReceiptRepository;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
@@ -38,19 +39,32 @@ public class ReceiptService {
     }
 
     public List<ReceiptResponseDTO> getByTransactionId(Long transactionId) {
-        return receiptRepository.findByTransactionId(transactionId).stream()
+        List<Receipt> receipts = receiptRepository.findByTransactionId(transactionId);
+        if (receipts.isEmpty()) {
+            throw new EntityNotFoundException("No receipts found for transaction ID: " + transactionId);
+        }
+        return receipts.stream()
                 .map(this::convertToDTO)
                 .collect(Collectors.toList());
     }
 
     public List<ReceiptResponseDTO> getByOrderId(Long orderId) {
-        return receiptRepository.findByOrderId(orderId).stream()
+        List<Receipt> receipts = receiptRepository.findByOrderId(orderId);
+        if (receipts.isEmpty()) {
+            throw new EntityNotFoundException("No receipts found for order ID: " + orderId);
+        }
+        return receipts.stream()
                 .map(this::convertToDTO)
                 .collect(Collectors.toList());
     }
 
     public List<ReceiptResponseDTO> getByCustomerRut(String rut) {
-        return receiptRepository.findByCustomerRut(rut).stream()
+
+        List<Receipt> receipts = receiptRepository.findByCustomerRut(rut);
+        if (receipts.isEmpty()) {
+            throw new EntityNotFoundException("No receipts found for customer RUT: " + rut);
+        }
+        return receipts.stream()
                 .map(this::convertToDTO)
                 .collect(Collectors.toList());
     }
@@ -69,4 +83,13 @@ public class ReceiptService {
                 .status(receipt.getStatus().name())
                 .build();
     }
+
+    public List<Receipt> getReceiptsByTransactionId(Long transactionId) {
+        return receiptRepository.findByTransactionId(transactionId);
+    }
+
+    public long countAllReceipts() {
+        return receiptRepository.count();
+    }
+
 }

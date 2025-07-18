@@ -1,4 +1,4 @@
-package com.ecomarket.backend.payment.DTO;
+package com.ecomarket.backend.payment.DTO.response;
 
 import lombok.*;
 
