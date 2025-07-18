@@ -1,9 +1,10 @@
 package com.ecomarket.backend.payment.service;
 
-import com.ecomarket.backend.payment.DTO.InvoiceRequestDTO;
-import com.ecomarket.backend.payment.DTO.InvoiceResponseDTO;
+import com.ecomarket.backend.payment.DTO.request.InvoiceRequestDTO;
+import com.ecomarket.backend.payment.DTO.response.InvoiceResponseDTO;
 import com.ecomarket.backend.payment.model.Invoice;
 import com.ecomarket.backend.payment.repository.InvoiceRepository;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
@@ -38,13 +39,21 @@ public class InvoiceService {
     }
 
     public List<InvoiceResponseDTO> getInvoicesByTransactionId(Long transactionId) {
-        return invoiceRepository.findByTransactionId(transactionId).stream()
+        List<Invoice> invoices = invoiceRepository.findByTransactionId(transactionId);
+        if (invoices.isEmpty()) {
+            throw new EntityNotFoundException("No invoices found for transaction ID: " + transactionId);
+        }
+        return invoices.stream()
                 .map(this::convertToDTO)
                 .collect(Collectors.toList());
     }
 
     public List<InvoiceResponseDTO> getInvoicesByOrderId(Long orderId) {
-        return invoiceRepository.findByOrderId(orderId).stream()
+        List<Invoice> invoices = invoiceRepository.findByOrderId(orderId);
+        if (invoices.isEmpty()) {
+            throw new EntityNotFoundException("No invoices found for order ID: " + orderId);
+        }
+        return invoices.stream()
                 .map(this::convertToDTO)
                 .collect(Collectors.toList());
     }
