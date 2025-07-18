@@ -1,12 +1,9 @@
 package com.ecomarket.backend.shipping.DTO.request;
 
-import com.ecomarket.backend.shipping.model.Shipment;
-import jakarta.validation.constraints.DecimalMin;
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
-import java.math.BigDecimal;
-import java.time.LocalDateTime;
+
+import jakarta.validation.constraints.Size;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
@@ -17,24 +14,11 @@ import lombok.AllArgsConstructor;
 public class ShipmentRequestDTO {
 
     @NotNull(message = "Order ID cannot be null.")
-    private Integer orderId;
+    private Long orderId; // Asumo que el orderId es Long, ajusta si es Integer
 
-    @NotBlank(message = "Tracking number cannot be empty.")
+    @NotNull(message = "Tracking number cannot be null.")
+    @Size(min = 5, max = 50, message = "Tracking number must be between 5 and 50 characters.") // Ejemplo de validación
     private String trackingNumber;
-
-    @NotNull(message = "Shipment date cannot be null.")
-    private LocalDateTime shipmentDate;
-
-    private LocalDateTime estimatedDeliveryDate;
-
-    @NotNull(message = "Shipment status cannot be null.")
-    private Shipment.ShipmentStatus shipmentStatus;
-
-    @DecimalMin(value = "0.0", message = "El costo de envío no puede ser negativo.")
-    private BigDecimal shippingCost;
-
-    @NotNull(message = "Destination address ID cannot be null.")
-    private Integer destinationAddressId;
 
     @NotNull(message = "Supplier ID cannot be null.")
     private Integer supplierId;

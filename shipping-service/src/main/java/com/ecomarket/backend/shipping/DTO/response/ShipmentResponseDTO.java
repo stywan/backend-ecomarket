@@ -5,13 +5,17 @@ import java.time.LocalDateTime;
 
 import com.ecomarket.backend.shipping.model.Shipment;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
+import org.springframework.hateoas.RepresentationModel;
 
+@EqualsAndHashCode(callSuper = true)
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class ShipmentResponseDTO {
+public class ShipmentResponseDTO extends RepresentationModel<ShipmentResponseDTO> {
+
     private Integer shipmentId;
     private Integer orderId;
     private String trackingNumber;
