@@ -1,11 +1,13 @@
-package com.ecomarket.backend.catalog_product.DTO;
+package com.ecomarket.backend.catalog_product.DTO.request;
 
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
+import lombok.Builder;
 import lombok.Data;
 
 @Data
+@Builder
 public class ReviewRequest {
 
     @NotNull(message = "Product ID is required")

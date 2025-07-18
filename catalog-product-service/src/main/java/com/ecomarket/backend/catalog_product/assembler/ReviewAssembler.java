@@ -1,6 +1,6 @@
 package com.ecomarket.backend.catalog_product.assembler;
 
-import com.ecomarket.backend.catalog_product.DTO.ReviewResponse;
+import com.ecomarket.backend.catalog_product.DTO.response.ReviewResponse;
 import com.ecomarket.backend.catalog_product.controller.ProductController;
 import com.ecomarket.backend.catalog_product.controller.ReviewController;
 import com.ecomarket.backend.catalog_product.model.Review;

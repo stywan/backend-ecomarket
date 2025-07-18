@@ -1,6 +1,6 @@
 package com.ecomarket.backend.catalog_product.service;
 
-import com.ecomarket.backend.catalog_product.DTO.InventoryOperationRequest;
+import com.ecomarket.backend.catalog_product.DTO.request.InventoryOperationRequest;
 import com.ecomarket.backend.catalog_product.exception.ResourceNotFoundException;
 import com.ecomarket.backend.catalog_product.model.Inventory;
 import com.ecomarket.backend.catalog_product.repository.InventoryRepository;

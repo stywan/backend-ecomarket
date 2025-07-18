@@ -1,6 +1,6 @@
 package com.ecomarket.backend.catalog_product.assembler;
 
-import com.ecomarket.backend.catalog_product.DTO.InventoryResponse;
+import com.ecomarket.backend.catalog_product.DTO.response.InventoryResponse;
 import com.ecomarket.backend.catalog_product.controller.InventoryController;
 import com.ecomarket.backend.catalog_product.controller.ProductController;
 import com.ecomarket.backend.catalog_product.model.Inventory;

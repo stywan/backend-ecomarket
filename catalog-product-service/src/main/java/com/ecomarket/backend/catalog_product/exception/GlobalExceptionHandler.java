@@ -51,9 +51,20 @@ public class GlobalExceptionHandler {
         return buildResponse(HttpStatus.BAD_REQUEST, ex.getMessage());
     }
 
+    // --- AÑADE ESTE MÉTODO ESPECÍFICO PARA IllegalArgumentException ---
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<Object> handleIllegalArgument(IllegalArgumentException ex) {
+        // En este caso, el mensaje de la excepción es el que queremos mostrar
+        // (ej. "Not enough stock", "Invalid operation")
+        return buildResponse(HttpStatus.BAD_REQUEST, ex.getMessage());
+    }
+
+    // El manejador genérico debe ir al final
     @ExceptionHandler(Exception.class)
     public ResponseEntity<Object> handleGeneral(Exception ex) {
         ex.printStackTrace(); // Opcional para debug
+        // Aquí puedes decidir si quieres mostrar ex.getMessage() o un mensaje genérico
+        // "Internal server error" es más seguro para producción, pero para debug podrías usar ex.getMessage()
         return buildResponse(HttpStatus.INTERNAL_SERVER_ERROR, "Internal server error");
     }
 

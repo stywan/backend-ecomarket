@@ -1,6 +1,6 @@
 package com.ecomarket.backend.catalog_product.service;
 
-import com.ecomarket.backend.catalog_product.DTO.ReviewRequest;
+import com.ecomarket.backend.catalog_product.DTO.request.ReviewRequest;
 import com.ecomarket.backend.catalog_product.exception.ResourceNotFoundException;
 import com.ecomarket.backend.catalog_product.model.Product;
 import com.ecomarket.backend.catalog_product.model.Review;
