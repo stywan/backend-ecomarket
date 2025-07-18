@@ -1,9 +1,9 @@
 package com.ecomarket.backend.catalog_product.assembler;
 
-import com.ecomarket.backend.catalog_product.DTO.BrandResponse;
-import com.ecomarket.backend.catalog_product.DTO.CategoryResponse;
-import com.ecomarket.backend.catalog_product.DTO.ProductImageResponse;
-import com.ecomarket.backend.catalog_product.DTO.ProductResponse;
+import com.ecomarket.backend.catalog_product.DTO.response.BrandResponse;
+import com.ecomarket.backend.catalog_product.DTO.response.CategoryResponse;
+import com.ecomarket.backend.catalog_product.DTO.response.ProductImageResponse;
+import com.ecomarket.backend.catalog_product.DTO.response.ProductResponse;
 import com.ecomarket.backend.catalog_product.controller.InventoryController;
 import com.ecomarket.backend.catalog_product.controller.ProductController;
 import com.ecomarket.backend.catalog_product.controller.ReviewController;

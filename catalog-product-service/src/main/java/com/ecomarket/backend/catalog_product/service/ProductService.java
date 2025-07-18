@@ -1,7 +1,7 @@
 package com.ecomarket.backend.catalog_product.service;
 
-import com.ecomarket.backend.catalog_product.DTO.ProductImageRequest;
-import com.ecomarket.backend.catalog_product.DTO.ProductRequest;
+import com.ecomarket.backend.catalog_product.DTO.request.ProductImageRequest;
+import com.ecomarket.backend.catalog_product.DTO.request.ProductRequest;
 import com.ecomarket.backend.catalog_product.exception.ResourceNotFoundException;
 import com.ecomarket.backend.catalog_product.model.*;
 import com.ecomarket.backend.catalog_product.repository.*;
