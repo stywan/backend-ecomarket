@@ -173,5 +173,4 @@ public class ShipmentController {
 
         return ResponseEntity.ok(collectionModel);
     }
-
 }
