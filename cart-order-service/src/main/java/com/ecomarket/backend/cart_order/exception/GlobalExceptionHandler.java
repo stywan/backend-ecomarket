@@ -2,9 +2,12 @@ package com.ecomarket.backend.cart_order.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
 import java.time.LocalDateTime;
 import java.util.HashMap;
@@ -57,4 +60,43 @@ public class GlobalExceptionHandler {
         error.put("timestamp", LocalDateTime.now());
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(error);
     }
+
+    @ExceptionHandler(MethodArgumentTypeMismatchException.class)
+    public ResponseEntity<Map<String, Object>> handleMethodArgumentTypeMismatch(MethodArgumentTypeMismatchException ex) {
+        Map<String, Object> error = new LinkedHashMap<>();
+        error.put("error", "Bad Request");
+        String paramName = ex.getName();
+        Object invalidValue = ex.getValue();
+        Class<?> requiredType = ex.getRequiredType();
+        String message = String.format("El valor '%s' para el parámetro '%s' no es válido. Se esperaba un tipo '%s'.",
+                invalidValue, paramName, requiredType != null ? requiredType.getSimpleName() : "desconocido");
+        error.put("message", message);
+        error.put("status", HttpStatus.BAD_REQUEST.value());
+        error.put("timestamp", LocalDateTime.now());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
+    }
+
+    @ExceptionHandler(MissingServletRequestParameterException.class)
+    public ResponseEntity<Map<String, Object>> handleMissingServletRequestParameter(MissingServletRequestParameterException ex) {
+        Map<String, Object> error = new LinkedHashMap<>();
+        error.put("error", "Bad Request");
+        String message = String.format("El parámetro '%s' de tipo '%s' es requerido y no está presente.",
+                ex.getParameterName(), ex.getParameterType());
+        error.put("message", message);
+        error.put("status", HttpStatus.BAD_REQUEST.value());
+        error.put("timestamp", LocalDateTime.now());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
+    }
+
+    @ExceptionHandler(HttpMessageNotReadableException.class)
+    public ResponseEntity<Map<String, Object>> handleHttpMessageNotReadable(HttpMessageNotReadableException ex) {
+        Map<String, Object> error = new LinkedHashMap<>();
+        error.put("error", "Bad Request");
+        String message = "El cuerpo de la solicitud no es un JSON válido o está mal formado. " + ex.getLocalizedMessage();
+        error.put("message", message);
+        error.put("status", HttpStatus.BAD_REQUEST.value());
+        error.put("timestamp", LocalDateTime.now());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
+    }
+
 }
